@@ -1,12 +1,15 @@
+package spbstu.tpj;
+
 import java.util.Arrays;
+
 
 /**
  * main
- * 
+ *
  * run with javac Main.java && java -ea Main
  */
 
-class TicTacToe {
+public class TicTacToe {
     public TicTacToe(int size_) {
         size = size_;
         field = new FieldValues[size][size];
@@ -71,7 +74,7 @@ class TicTacToe {
                 count = temp_count;
             }
         }
-        //dioganal (\) check
+        //diagonal (\) check
         for (int i = 0; i < size; i++) {
             int up_temp_count = 0;
             int down_temp_count = 0;
@@ -98,9 +101,9 @@ class TicTacToe {
             }
             if (down_temp_count > count) {
                 count = down_temp_count;
-            }            
+            }
         }
-        //dioganal (/) check
+        //diagonal (/) check
         for (int i = size-1; i >= 0; i--) {
             int up_temp_count = 0;
             int down_temp_count = 0;
@@ -127,7 +130,7 @@ class TicTacToe {
             }
             if (down_temp_count > count) {
                 count = down_temp_count;
-            }  
+            }
         }
         return count;
     }
@@ -135,50 +138,9 @@ class TicTacToe {
     enum FieldValues {
         X,
         O,
-        Empty;
+        Empty
     }
 
     private int size;
     private FieldValues [][] field;
-}
-
-public class Main {
-
-    public static void main(String[] args) {
-        // Horizontal test
-        {
-            TicTacToe game = new TicTacToe(4);
-            game.setX(0, 0);
-            // game.setX(0, 1);
-            game.setX(0, 2);
-            game.setX(0, 3);
-            assert game.getLongestX() == 2;
-        }
-        // Vertical test
-        {
-            TicTacToe game = new TicTacToe(5);
-            game.setX(0, 0);
-            game.setX(1, 0);
-            game.setX(2, 0);
-            game.setX(3, 0);
-            assert game.getLongestX() == 4;
-        }
-        // Diagonal test (\)
-        {
-            TicTacToe game = new TicTacToe(5);
-            game.setX(0, 0);
-            game.setX(1, 1);
-            game.setX(2, 2);
-            // game.setX(3, 3);
-            assert game.getLongestX() == 3;
-        }
-        // Diagonal test (/)
-        {
-            TicTacToe game = new TicTacToe(5);
-            game.setX(0, 2);
-            game.setX(1, 1);
-            game.setX(2, 0);
-            assert game.getLongestX() == 3;
-        }
-    }
 }
