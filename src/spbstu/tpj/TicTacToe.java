@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * main
  *
- * run with javac Main.java && java -ea
+ * run with javac Main.java && java -e
  */
 
 public class TicTacToe {
