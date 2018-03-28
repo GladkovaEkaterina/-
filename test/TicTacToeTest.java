@@ -61,5 +61,4 @@ public class TicTacToeTest {
         example.setX(3, 2);
         assertEquals(3, example.getLongestX());
     }
-
 }
