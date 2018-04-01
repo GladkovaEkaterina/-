@@ -2,33 +2,43 @@ package spbstu.tpj;
 
 import java.util.Arrays;
 
-
-/**
- * main
- *
- * run with javac Main.java && java -e
- */
-
 public class TicTacToe {
-    public TicTacToe(int size_) {
-        size = size_;
+
+    enum FieldValues {
+        X,
+        O,
+        Empty
+    }
+
+    private final int size;
+    private FieldValues[][] field;
+
+    public TicTacToe(int sizeNew) {
+        size = sizeNew;
         field = new FieldValues[size][size];
         for (FieldValues[] line : field) {
             Arrays.fill(line, FieldValues.Empty);
         }
     }
 
-    public void setX(int width, int height) {
-        field[width][height] = FieldValues.X;
+    private boolean setValue(FieldValues something, int width, int height)
+    {
+        if (width >= size || height >= size) {
+            return false;
+        }
+        field[width][height] = something;
+        return true;
     }
 
-    public void setO(int width, int height) {
-        field[width][height] = FieldValues.O;
+    public boolean setX(int width, int height) {
+        return setValue(FieldValues.X, width, height);
     }
 
-    public void clearCell(int width, int height) {
-        field[width][height] = FieldValues.Empty;
+    public boolean setO(int width, int height) {
+        return setValue(FieldValues.O, width, height);
     }
+
+    public boolean clearCell(int width, int height) { return setValue(FieldValues.Empty, width, height); }
 
     public int getLongestX() {
         return getLongestSomething(FieldValues.X);
@@ -42,105 +52,96 @@ public class TicTacToe {
         int count = 0;
         //horizontal check
         for (FieldValues[] cellLine : field) {
-            int temp_count = 0;
+            int tempCount = 0;
             for (FieldValues cell : cellLine) {
                 if (cell == something) {
-                    temp_count++;
+                    tempCount++;
                 } else {
-                    if (temp_count > count) {
-                        count = temp_count;
+                    if (tempCount > count) {
+                        count = tempCount;
                     }
-                    temp_count = 0;
+                    tempCount = 0;
                 }
             }
-            if (temp_count > count) {
-                count = temp_count;
+            if (tempCount > count) {
+                count = tempCount;
             }
         }
         //vertical check
         for (int i = 0; i < size; i++) {
-            int temp_count = 0;
+            int tempCount = 0;
             for (int j = 0; j < size; j++) {
                 if (field[j][i] == something) {
-                    temp_count++;
+                    tempCount++;
                 } else {
-                    if (temp_count > count) {
-                        count = temp_count;
+                    if (tempCount > count) {
+                        count = tempCount;
                     }
-                    temp_count = 0;
+                    tempCount = 0;
                 }
             }
-            if (temp_count > count) {
-                count = temp_count;
+            if (tempCount > count) {
+                count = tempCount;
             }
         }
         //diagonal (\) check
         for (int i = 0; i < size; i++) {
-            int up_temp_count = 0;
-            int down_temp_count = 0;
+            int upTempCount = 0;
+            int downTempCount = 0;
             for (int j = i; j < size; j++) {
                 if (field[j-i][j] == something) {
-                    up_temp_count++;
+                    upTempCount++;
                 } else {
-                    if (up_temp_count > count) {
-                        count = up_temp_count;
+                    if (upTempCount > count) {
+                        count = upTempCount;
                     }
-                    up_temp_count = 0;
+                    upTempCount = 0;
                 }
                 if (field[j][j-i] == something) {
-                    down_temp_count++;
+                    downTempCount++;
                 } else {
-                    if (down_temp_count > count) {
-                        count = down_temp_count;
+                    if (downTempCount > count) {
+                        count = downTempCount;
                     }
-                    down_temp_count = 0;
+                    downTempCount = 0;
                 }
             }
-            if (up_temp_count > count) {
-                count = up_temp_count;
+            if (upTempCount > count) {
+                count = upTempCount;
             }
-            if (down_temp_count > count) {
-                count = down_temp_count;
+            if (downTempCount > count) {
+                count = downTempCount;
             }
         }
         //diagonal (/) check
         for (int i = size-1; i >= 0; i--) {
-            int up_temp_count = 0;
-            int down_temp_count = 0;
+            int upTempCount = 0;
+            int downTempCount = 0;
             for (int j = 0; j < i+1; j++) {
                 if (field[i-j][j] == something) {
-                    up_temp_count++;
+                    upTempCount++;
                 } else {
-                    if (up_temp_count > count) {
-                        count = up_temp_count;
+                    if (upTempCount > count) {
+                        count = upTempCount;
                     }
-                    up_temp_count = 0;
+                    upTempCount = 0;
                 }
                 if (field[j][i-j] == something) {
-                    down_temp_count++;
+                    downTempCount++;
                 } else {
-                    if (down_temp_count > count) {
-                        count = down_temp_count;
+                    if (downTempCount > count) {
+                        count = downTempCount;
                     }
-                    down_temp_count = 0;
+                    downTempCount = 0;
                 }
             }
-            if (up_temp_count > count) {
-                count = up_temp_count;
+            if (upTempCount > count) {
+                count = upTempCount;
             }
-            if (down_temp_count > count) {
-                count = down_temp_count;
+            if (downTempCount > count) {
+                count = downTempCount;
             }
         }
         return count;
     }
-
-    enum FieldValues {
-        X,
-        O,
-        Empty
-    }
-
-    private int size;
-    private FieldValues [][] field;
 }
